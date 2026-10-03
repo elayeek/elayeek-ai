@@ -1,51 +1,67 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="720" height="352" viewBox="0 0 720 352" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
+<svg xmlns="http://www.w3.org/2000/svg" width="980" height="304" viewBox="0 0 980 304" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace" font-size="13">
 <style>
-@keyframes pane{0.0%{opacity:0}0.91%{opacity:0}3.64%{opacity:1}94.55%{opacity:1}100.0%{opacity:0}}
-@keyframes draft{0.0%{opacity:0}34.55%{opacity:0}37.27%{opacity:1}62.64%{opacity:1}62.73%{opacity:0}94.55%{opacity:0}100.0%{opacity:0}}
-@keyframes cmt{0.0%{opacity:0}62.73%{opacity:0}65.45%{opacity:1}94.55%{opacity:1}100.0%{opacity:0}}
-@keyframes t1{0.0%{opacity:0}69.09%{opacity:0}71.82%{opacity:1}94.55%{opacity:1}100.0%{opacity:0}}
-@keyframes t2{0.0%{opacity:0}76.36%{opacity:0}79.09%{opacity:1}94.55%{opacity:1}100.0%{opacity:0}}
-@keyframes t3{0.0%{opacity:0}81.82%{opacity:0}84.55%{opacity:1}94.55%{opacity:1}100.0%{opacity:0}}
-@keyframes selR{0%{opacity:0}14.55%{opacity:1;transform:translateY(0px);fill:#2c313a}19.09%{opacity:1;transform:translateY(22px);fill:#2c313a}23.64%{opacity:1;transform:translateY(44px);fill:#6a3037}28.18%{opacity:1;transform:translateY(66px);fill:#2a5a3c}62.73%{opacity:0}100%{opacity:0}}
-@keyframes selB{0%{opacity:0}14.55%{opacity:1;transform:translateY(0px)}19.09%{opacity:1;transform:translateY(22px)}23.64%{opacity:1;transform:translateY(44px)}28.18%{opacity:1;transform:translateY(66px)}62.73%{opacity:0}100%{opacity:0}}
-@keyframes shift{0%,34.55%{transform:translateY(0)}34.64%,62.73%{transform:translateY(44px)}62.82%,100%{transform:translateY(22px)}}
-@keyframes clip{0%,38.18%{width:0;animation-timing-function:steps(32)}56.36%,100%{width:249.6px}}
-@keyframes cur{0%,38.18%{transform:translateX(0);animation-timing-function:steps(32)}56.36%,100%{transform:translateX(249.6px)}}
-.pane{animation:pane 11.0s infinite linear }
-.draft{animation:draft 11.0s infinite linear }
-.cmt{animation:cmt 11.0s infinite linear }
-.t1{animation:t1 11.0s infinite linear }
-.t2{animation:t2 11.0s infinite linear }
-.t3{animation:t3 11.0s infinite linear }
-.sel{animation:selR 11.0s infinite linear }
-.selb{animation:selB 11.0s infinite linear }
-.shift{animation:shift 11.0s infinite linear }
-.clip{animation:clip 11.0s infinite linear }
-.cur{animation:cur 11.0s infinite linear }
-.sh{animation-timing-function:linear}.sel,.selb{animation-timing-function:step-end}
+@keyframes pane{0.0%{opacity:0;transform:translateX(40px)}19.35%{opacity:0;transform:translateX(40px)}23.23%{opacity:1;transform:translateX(0)}94.84%{opacity:1;transform:translateX(0)}100.0%{opacity:0;transform:translateX(0)}}
+@keyframes draft{0.0%{opacity:0}37.42%{opacity:0}39.35%{opacity:1}57.35%{opacity:1}57.42%{opacity:0}94.84%{opacity:0}100.0%{opacity:0}}
+@keyframes cmt{0.0%{opacity:0}57.42%{opacity:0}59.35%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes r1{0.0%{opacity:0}12.9%{opacity:0}14.84%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes t2{0.0%{opacity:0}72.9%{opacity:0}74.84%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes t3{0.0%{opacity:0}76.13%{opacity:0}78.06%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes t4{0.0%{opacity:0}78.71%{opacity:0}80.65%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes t5{0.0%{opacity:0}83.23%{opacity:0}85.16%{opacity:1}94.84%{opacity:1}100.0%{opacity:0}}
+@keyframes selR{0%{opacity:0}25.81%{opacity:1;transform:translateY(0px);fill:#2c313a}28.39%{opacity:1;transform:translateY(22px);fill:#2c313a}30.97%{opacity:1;transform:translateY(44px);fill:#6a3037}33.55%{opacity:1;transform:translateY(66px);fill:#2a5a3c}94.84%{opacity:1;transform:translateY(66px)}100%{opacity:0}}
+@keyframes selB{0%{opacity:0}25.81%{opacity:1;transform:translateY(0px)}28.39%{opacity:1;transform:translateY(22px)}30.97%{opacity:1;transform:translateY(44px)}33.55%{opacity:1;transform:translateY(66px)}94.84%{opacity:1;transform:translateY(66px)}100%{opacity:0}}
+@keyframes shift{0%,37.42%{transform:translateY(0)}37.48%,57.42%{transform:translateY(44px)}57.48%,100%{transform:translateY(22px)}}
+@keyframes kp1{0%,3.23%{width:0;animation-timing-function:steps(26)}10.97%,100%{width:202.79999999999998px}}
+.kp1{animation:kp1 15.5s infinite linear}
+@keyframes kp2{0%,61.94%{width:0;animation-timing-function:steps(28)}69.68%,100%{width:218.4px}}
+.kp2{animation:kp2 15.5s infinite linear}
+@keyframes kd{0%,40.0%{width:0;animation-timing-function:steps(32)}52.9%,100%{width:249.6px}}
+.kd{animation:kd 15.5s infinite linear}
+@keyframes cur{0%,40.0%{transform:translateX(0);animation-timing-function:steps(32)}52.9%,100%{transform:translateX(249.6px)}}
+.pane{animation:pane 15.5s infinite linear}
+.draft{animation:draft 15.5s infinite linear}
+.cmt{animation:cmt 15.5s infinite linear}
+.r1{animation:r1 15.5s infinite linear}
+.t2{animation:t2 15.5s infinite linear}
+.t3{animation:t3 15.5s infinite linear}
+.t4{animation:t4 15.5s infinite linear}
+.t5{animation:t5 15.5s infinite linear}
+.sel{animation:selR 15.5s infinite linear}
+.selb{animation:selB 15.5s infinite linear}
+.shift{animation:shift 15.5s infinite linear}
+.cur{animation:cur 15.5s infinite linear}
+.sel,.selb{animation-timing-function:step-end}
 </style>
-<clipPath id="c"><rect class="clip" x="133.2" y="150" height="40" width="0"/></clipPath>
-<rect width="720" height="352" rx="8" fill="#16181d"/><path d="M0 8a8 8 0 0 1 8-8h704a8 8 0 0 1 8 8v22H0z" fill="#2a2d34"/>
+<clipPath id="p1"><rect class="kp1" x="24" y="44" height="22" width="0"/></clipPath>
+<clipPath id="p2"><rect class="kp2" x="24" y="110" height="22" width="0"/></clipPath>
+<clipPath id="d"><rect class="kd" x="609.2" y="198" height="22" width="0"/></clipPath>
+<rect width="980" height="304" rx="8" fill="#16181d"/><path d="M0 8a8 8 0 0 1 8-8h964a8 8 0 0 1 8 8v22H0z" fill="#2a2d34"/>
 <circle cx="18" cy="15" r="5" fill="#ff5f56"/><circle cx="36" cy="15" r="5" fill="#ffbd2e"/><circle cx="54" cy="15" r="5" fill="#27c93f"/>
-<text x="360" y="19" text-anchor="middle" fill="#9aa0aa">Diff: auth.ts vs HEAD</text>
+<text x="490" y="19" text-anchor="middle" fill="#9aa0aa">Claude Code</text>
+<path d="M480 30V304" stroke="#2a2d34"/>
+<text x="24" y="60" fill="#e6e6e6" clip-path="url(#p1)" xml:space="preserve">&gt; /inline-diff src/auth.ts</text>
+<text x="24" y="126" fill="#e6e6e6" clip-path="url(#p2)" xml:space="preserve">&gt; address my review comments</text>
+<text x="24" y="82" fill="#7d8590" class="r1" xml:space="preserve">  ⎿ Diff of /repo/src/auth.ts against HEAD</text>
+<text x="24" y="148" fill="#e6e6e6" class="t2" xml:space="preserve">⏺ inline-review - list_comments (MCP)</text>
+<text x="24" y="170" fill="#ffd75f" class="t3" xml:space="preserve">  ⎿ /repo/src/auth.ts:12 (new): Add a 30s window</text>
+<text x="24" y="192" fill="#ffd75f" class="t3" xml:space="preserve">    for clock skew?</text>
+<text x="24" y="214" fill="#7d8590" class="t4" xml:space="preserve">    &gt; +  return t.exp &lt;= now</text>
+<text x="24" y="258" fill="#e6e6e6" class="t5" xml:space="preserve">⏺ Adding a 30-second skew window to isExpired.</text>
 <g class="pane">
-<rect x="12" y="132" width="696" height="22" fill="#4a2227"/><rect x="12" y="154" width="696" height="22" fill="#1f3d2b"/>
-<rect class="sel" x="12" y="88" width="696" height="22" fill="#2c313a"/>
-<text x="24" y="60" fill="#e6e6e6" xml:space="preserve">auth.ts                                                                    <tspan fill="#5fd75f">+1</tspan> <tspan fill="#ff5f5f">−1</tspan></text>
-<text x="24" y="82" fill="#7d8590" xml:space="preserve">⋯ 10,4 → 10,4 ──────────────────────────────────────────────────────────────────────</text>
-<text x="24" y="104" fill="#e6e6e6" xml:space="preserve"> 10  10 │ export function isExpired(t: Token) {</text>
-<text x="24" y="126" fill="#e6e6e6" xml:space="preserve"> 11  11 │   const now = Date.now()</text>
-<text x="24" y="148" fill="#e6e6e6" xml:space="preserve"> 12     │<tspan fill="#ff5f5f">-</tspan>  return t.exp &lt; now</text>
-<text x="24" y="170" fill="#e6e6e6" xml:space="preserve">     12 │<tspan fill="#5fd75f">+</tspan>  return t.exp &lt;= now</text>
-<g class="shift"><text x="24" y="192" fill="#e6e6e6" xml:space="preserve"> 13  13 │ }</text></g>
-<text class="selb" x="24" y="104" fill="#00d7d7">▌</text>
-<g class="draft"><text x="24" y="192" fill="#5fd75f" xml:space="preserve">         ┃  ✎ </text>
-<text x="133.2" y="192" fill="#5fd75f" clip-path="url(#c)" xml:space="preserve">Add a 30s window for clock skew?</text>
-<rect class="cur" x="133.2" y="179" width="7.8" height="16" fill="#5fd75f"/>
-<text x="24" y="214" fill="#7d8590" xml:space="preserve">     Enter to save</text></g>
-<g class="cmt"><text x="24" y="192" fill="#ffd75f" xml:space="preserve">         ┃  ↳ 12: Add a 30s window for clock skew?</text></g></g>
-<path d="M12 262H708" stroke="#2a2d34"/>
-<text x="24" y="288" fill="#d7d7d7" class="t1" xml:space="preserve">⏺ list_comments</text>
-<text x="24" y="314" fill="#ffd75f" class="t2" xml:space="preserve">/repo/src/auth.ts:12 (new): Add a 30s window for clock skew?</text>
-<text x="24" y="336" fill="#7d8590" class="t3" xml:space="preserve">    &gt; +  return t.exp &lt;= now</text>
+<text x="500" y="60" fill="#9aa0aa" xml:space="preserve">Diff: auth.ts vs HEAD</text>
+<rect x="490" y="154" width="478" height="22" fill="#4a2227"/><rect x="490" y="176" width="478" height="22" fill="#1f3d2b"/>
+<rect class="sel" x="490" y="110" width="478" height="22" fill="#2c313a"/>
+<text x="500" y="82" fill="#e6e6e6" xml:space="preserve">auth.ts                                              <tspan fill="#5fd75f">+1</tspan> <tspan fill="#ff5f5f">−1</tspan></text>
+<text x="500" y="104" fill="#7d8590" xml:space="preserve">⋯ 10,4 → 10,4 ──────────────────────────────────────────</text>
+<text x="500" y="126" fill="#e6e6e6" xml:space="preserve"> 10  10 │ export function isExpired(t: Token) {</text>
+<text x="500" y="148" fill="#e6e6e6" xml:space="preserve"> 11  11 │   const now = Date.now()</text>
+<text x="500" y="170" fill="#e6e6e6" xml:space="preserve"> 12     │<tspan fill="#ff5f5f">-</tspan>  return t.exp &lt; now</text>
+<text x="500" y="192" fill="#e6e6e6" xml:space="preserve">     12 │<tspan fill="#5fd75f">+</tspan>  return t.exp &lt;= now</text>
+<g class="shift"><text x="500" y="214" fill="#e6e6e6" xml:space="preserve"> 13  13 │ }</text></g>
+<text class="selb" x="500" y="126" fill="#00d7d7">▌</text>
+<g class="draft"><text x="500" y="214" fill="#5fd75f" xml:space="preserve">         ┃  ✎ </text>
+<text x="609.2" y="214" fill="#5fd75f" clip-path="url(#d)" xml:space="preserve">Add a 30s window for clock skew?</text>
+<rect class="cur" x="609.2" y="201" width="7.8" height="16" fill="#5fd75f"/>
+<text x="500" y="236" fill="#7d8590" xml:space="preserve">     Enter to save</text></g>
+<g class="cmt"><text x="500" y="214" fill="#ffd75f" xml:space="preserve">         ┃  ↳ 12: Add a 30s window for clock skew?</text></g></g>
 </svg>
