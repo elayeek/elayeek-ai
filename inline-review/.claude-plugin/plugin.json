@@ -1,0 +1,7 @@
+{
+  "name": "inline-review",
+  "version": "0.1.0",
+  "description": "Show a file in a pane and leave inline comments the model can read",
+  "author": { "name": "elaye", "email": "elayeek@gmail.com" },
+  "types": "./types/index.d.ts"
+}
