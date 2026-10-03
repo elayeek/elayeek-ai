@@ -1,7 +1,0 @@
-{
-  "name": "fan-out-research",
-  "version": "0.1.0",
-  "description": "Scan a large corpus with several analyst agents: shared rubric, deterministic preprocessing, numbers computed in code",
-  "author": { "name": "elaye", "email": "elayeek@gmail.com" },
-  "license": "MIT"
-}
