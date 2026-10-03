@@ -8,6 +8,8 @@ A Claude Code plugin marketplace.
 
 ## inline-review in action
 
+![inline-review demo](docs/inline-review.svg)
+
 The model shows you a diff with `show_file` (or you run `/inline-diff src/auth.ts`):
 
 ```
