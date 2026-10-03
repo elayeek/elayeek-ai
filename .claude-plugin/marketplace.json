@@ -7,6 +7,11 @@
       "name": "inline-review",
       "source": "./inline-review",
       "description": "Show a file or a git diff in a side pane and leave inline comments the model can read"
+    },
+    {
+      "name": "fan-out-research",
+      "source": "./fan-out-research",
+      "description": "Scan a large corpus with several analyst agents: shared rubric, deterministic preprocessing, numbers computed in code"
     }
   ]
 }

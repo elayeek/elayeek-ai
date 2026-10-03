@@ -5,6 +5,7 @@ This is where I back up random projects and tools I make for myself. It doubles 
 | Plugin | Description |
 |---|---|
 | [`inline-review`](./inline-review) | Show a file or a git diff in a side pane and leave inline comments the model can read |
+| [`fan-out-research`](./fan-out-research) | Scan a large corpus with several analyst agents: shared rubric, deterministic preprocessing, numbers computed in code |
 
 ## inline-review in action
 
@@ -15,6 +16,7 @@ This is where I back up random projects and tools I make for myself. It doubles 
 ```
 /plugin marketplace add elayeek/elayeek-ai
 /plugin install inline-review@elayeek-ai
+/plugin install fan-out-research@elayeek-ai
 ```
 
 Outside a session, use `claude plugin marketplace add …` and `claude plugin install …`.
