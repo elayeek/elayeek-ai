@@ -1,6 +1,6 @@
 # elayeek-ai
 
-A Claude Code plugin marketplace.
+This is where I back up random projects and tools I make for myself. It doubles as a Claude Code plugin marketplace to make it easier to sync back to my Claude.
 
 | Plugin | Description |
 |---|---|
