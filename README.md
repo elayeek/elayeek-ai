@@ -5,6 +5,7 @@ This is where I back up random projects and tools I make for myself. It doubles 
 | Plugin | Description |
 |---|---|
 | [`inline-review`](./inline-review) | Show a file or a git diff in a side pane and leave inline comments the model can read |
+| [`deslop`](./deslop) | Find AI-authored slop in a change with read-only finder agents, grade each finding with a verifier, then fix the ones you pick |
 
 ## inline-review in action
 
@@ -15,6 +16,7 @@ This is where I back up random projects and tools I make for myself. It doubles 
 ```
 /plugin marketplace add elayeek/elayeek-ai
 /plugin install inline-review@elayeek-ai
+/plugin install deslop@elayeek-ai
 ```
 
 Outside a session, use `claude plugin marketplace add …` and `claude plugin install …`.

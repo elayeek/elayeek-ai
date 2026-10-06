@@ -1,0 +1,7 @@
+{
+  "name": "deslop",
+  "version": "0.1.0",
+  "description": "Find AI-authored slop in a change with read-only finder agents, grade each finding with a verifier, then fix the ones you pick",
+  "author": { "name": "elaye", "email": "elayeek@gmail.com" },
+  "license": "MIT"
+}

@@ -7,6 +7,11 @@
       "name": "inline-review",
       "source": "./inline-review",
       "description": "Show a file or a git diff in a side pane and leave inline comments the model can read"
+    },
+    {
+      "name": "deslop",
+      "source": "./deslop",
+      "description": "Find AI-authored slop in a change with read-only finder agents, grade each finding with a verifier, then fix the ones you pick"
     }
   ]
 }
