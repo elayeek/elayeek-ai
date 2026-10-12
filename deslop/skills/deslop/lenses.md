@@ -198,8 +198,12 @@ the line itself, the line above, or for the whole file (for example `# noqa`,
 the surrounding file, plus peer files in the same directory when the new code is their peer
 (another handler, migration, or test file). Drift covers these dimensions of code, and only these, plus the wording of prompt and template text against its sibling prompts. Prompt findings are `review`. The dimensions: naming, control flow, imports, signature shape
 (parameter order, options object versus positional, sync versus async, return style),
-error-handling style (throw versus result, error types), and export and module structure. A
-convention exists only where the siblings agree: mixed siblings mean no finding.
+error-handling style (throw versus result, error types), export and module structure,
+identifier quality (one-letter or truncated names outside a loop index, where siblings use
+full words), and file placement (a new file of a kind the repo keeps in a majority directory
+at the base, such as `spec/` or `dto/`, placed elsewhere; measure the majority with
+`git ls-tree`). A convention exists only where the siblings agree: mixed siblings mean no
+finding.
 
 **Drift: which peers set the lead.** Read up to 3 peers, the ones most like the new file
 (another handler, another test of the same source file). Stop as soon as two disagree. Peers
@@ -222,14 +226,21 @@ itself. "Existing" means present at the base.
   already does. It applies only when the home existed before the change. Flag the first copy:
   the home exists, so the fix is to use it.
 - **Reinvented platform** — new code does what the standard library, a native platform
-  feature, or an installed dependency already does. Flag the first copy.
+  feature, or an installed dependency already does. Read the package's dependency list
+  (`package.json`, `pyproject.toml`) and check the installed package's exports for the job
+  (parse, format, pad, group, pick). Flag the first copy. The rule of three never applies to
+  this shape.
 - **Copy-paste** — the same logic in several places. Follow the **rule of three**: a second
   copy is fine, a third is a finding. Copies the change adds follow it too: two are no
   finding, a third is. A change that adds a third copy of an existing pair is in scope. The
   trigger is a repeated shape, the same ordered work, not lines that happen to look alike. A
   helper function defined in a test file follows the rule of three: report a third copy with
   the suggestion to move it to a shared home, as `review`. Inline setup inside a
-  test body stays exempt: tests repeat setup so each one reads alone.
+  test body stays exempt, except a call to a lifecycle hook of the code under test
+  (`onModuleInit`, `ngOnInit`, `setup()`) repeated in every test: that is a finding, with the
+  fix of one `beforeEach` or a factory.
+- **Repeated literal** — a value literal repeated 3 or more times in the change where the
+  repo has a type, enum or constant for it. Evidence: the type or constant.
 
 Search limits. Only a definition at the top level of a file triggers a search: in source files,
 functions, classes, and constants; in test files, helper functions. The functions the test
@@ -261,6 +272,9 @@ matches no shape passes.
   Evidence: the setup it checks.
 - **Mock tautology** — it configures a mock to return a value, then asserts that value, with
   none of our logic in between. Evidence: the mock setup line and the echoing assertion.
+- **Testing a stand-in** — it calls a helper defined in the test file that wraps or
+  re-implements the code under test, so the assertion exercises the stand-in. Evidence: the
+  helper and the real function it shadows.
 
 An odd or unrealistic input is not a shape: judge a test by what it catches, not by how its
 input looks. In scope: tests the change adds, plus an older test a new test now covers

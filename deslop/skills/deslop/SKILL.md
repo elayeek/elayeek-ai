@@ -42,7 +42,8 @@ git -C <root> ls-files --others --exclude-standard
 ```
 The diff runs against the working tree, so uncommitted edits count. Keep each renamed file's
 old path with its new one, and mark each file from the second command `untracked`. Drop
-generated files, lockfiles, snapshot and data-fixture files, and binary files. Only files in
+generated files, lockfiles, snapshot and row-data fixture files, and binary files. Schema DDL,
+SQL and migration files are code and stay in scope. Only files in
 this list are in scope. If the list is empty, stop: "No changes to clean up."
 
 A whole-repo run takes no diff. Its file list is `git -C <root> ls-files`, minus the same drops;
@@ -99,6 +100,10 @@ file list from Scope the diff (with the old path and the `untracked` flag where 
 the lens file path, the context files, and every numbered finding, verbatim. The same shape
 and resume rules apply to its `VERDICTS:` list: one verdict per finding given. A verdict with
 no `checked` line is unusable, and its finding stays unchecked; the list says so.
+Before the verifier grades a duplication finding `false` under the rule of three, it checks the
+Reinvented platform shape on the same lines; a drop reason names both checks. Notes in finder
+and verifier prompts state facts about the code (types, versions, user decisions); they never
+say a line is intended, on purpose, or not slop.
 
 Apply the verdicts: drop each `false` finding and keep its reason for the list; replace the
 fields of each `partly` finding and mark it `partly`; mark each `weak` finding; a `holds`
@@ -111,7 +116,7 @@ Show the checked findings, numbered and grouped by group, each as
 `<n>. file:line — one-phrase description (lens, size)`, with `(caused by file:line)` when it
 has a `cause`, `(duplicates …)` when it has `duplicates`, and `(partly: <reason>)`,
 `(weak: <reason>)`, or `(unchecked)` when those apply. Under a separate head, list each
-dropped finding in one line with its reason. List every unusable report with its group's files.
+dropped finding in one line with its reason and its code lines (at most 3). List every unusable report with its group's files.
 
 Ask which to fix. The user answers with finding numbers, groups, files, or a mix. No findings,
 or "none": end the run here with the list as the report.
@@ -233,7 +238,7 @@ search, keep). Apply the answers (Check the fixes).
 List each picked finding as `file:line — one-phrase description (lens)`, grouped: fixed,
 not fixed with the fixer's reason, and reverted with the reason. List every unusable report
 with its group's files. Add one line with the finding count and the verifier's tokens and tool
-calls.
+calls. Relay every fixer note that names lost coverage or a changed behavior, verbatim.
 
 Always end with **1–3 sentences**, plus one when a fix was kept: what changed, the check result (including
 `gate not run: <reason>` or `no check command`), the review result, and the snapshot folder's
