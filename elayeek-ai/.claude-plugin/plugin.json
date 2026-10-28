@@ -1,0 +1,7 @@
+{
+  "name": "elayeek-ai",
+  "version": "0.1.0",
+  "description": "A skill framework: workflow skills that load only when a task needs them",
+  "author": { "name": "elaye", "email": "elayeek@gmail.com" },
+  "license": "MIT"
+}
