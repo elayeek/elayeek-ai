@@ -17,7 +17,7 @@ A **stack** is a run of tasks that becomes one pull request (PR).
 
 ## 1. Find the place
 
-Write the plan where this feature's plan already is. With no plan yet, use the place the user's instructions name. With neither, ask the user.
+Write the plan where this feature's plan already is. With no plan yet, use the place the user's instructions name. With neither, use `<repo>/.elayeek-ai/<plan-name>/`. When `<repo>/.elayeek-ai/.gitignore` is missing, write it with the single line `*`.
 
 ## 2. Read the sources and the code
 
@@ -58,7 +58,7 @@ Each Approach names what it handles: the case, the input, the error. Each accept
 
 Each test pins a behavior: given an input or a state, the output, the effect or the error a caller sees. A test that passes against a different correct implementation is right; a test that breaks when the code is restructured without a change in behavior is wrong.
 
-Verification uses the test level the source documents ask for. A behavior that crosses a boundary, such as the database, a webhook or another service, is tested through that boundary. Mock only what the repo cannot run, and name the reason in the task.
+Verification uses the test level the source documents ask for. A behavior that crosses a boundary, such as the database, a webhook or another service, is tested through that boundary. Mock only what the repo cannot run, and name the reason in the task. Verification runs through the repo's gates. A step the repo runs only at deploy, such as a migration, is checked by review.
 
 Verification is red, then green. Red names the assertion that fails before the code exists, and why it fails. It fails on an assertion, not on a compile or import error. Green is the same command, exiting 0.
 
