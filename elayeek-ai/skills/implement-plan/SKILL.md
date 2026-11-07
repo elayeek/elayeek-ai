@@ -31,6 +31,8 @@ Stop and ask when:
 
 When an implementer returns `BLOCKED`, start no new task. Let the running tasks finish, then ask all open questions in one round. On the answer, resume the blocked implementer through SendMessage with it.
 
+When the user stops the run before all tasks are done, start no new task. Let the running tasks report. Then hand over the complete tasks (step 6) and call `elayeek-ai:finish-branch` with them. Write `Stopped: by the user (complete: T-a, T-b)` to the ledger, and say "stopped early" in the call. Unfinished tasks stay in the ledger for a later run. A task that reports `BLOCKED` stays unfinished, and its questions go into the hand-over. Say in the hand-over that the final review did not run on the complete tasks.
+
 ## Ledger
 
 `<feature folder>/run/ledger.md` is the record of the run. Append each line when its event happens. After a compaction, trust the ledger and `git log` over your memory.
@@ -40,10 +42,12 @@ When an implementer returns `BLOCKED`, start no new task. Let the running tasks 
 Gates: typecheck `<command>`; lint `<command>`; tests `<command>` (or `not configured` for each)
 Resources: <each one, confirmed by the user>
 Feature branch: <name> from <default branch> at <sha7>
+Fork: T-<n> kept separate (children T-<a>, T-<b>)
+Stopped: by the user (complete: T-a, T-b)
 Edge: T-<n> after T-<m> (serialized: both block T-<k>)
-T-<n>: started (branch <name>; worktree <path>; base <sha7>; implementer <model>, <effort>, <agent id>[; <effort reason>])
+T-<n>: started (branch <name>; parent <branch>; worktree <path>; base <sha7>; implementer <model>, <effort>, <agent id>[; <effort reason>])
 T-<n>: report <status> (<base sha7>..<head sha7>)
-T-<n>: moved (<base sha7>..<head sha7>)
+T-<n>: moved (parent <branch>; <base sha7>..<head sha7>)
 T-<n>: fix request (<gate log | final round k>)
 T-<n>: decided: <choice, as the report states it>
 T-<n>: departure: <as the report states it>
@@ -55,15 +59,16 @@ Gates: <line top sha7>: <gate> exit <code>, ...
 Final: reviewer opus, <effort>, <agent id>
 Final: fix round <k>/5 (<count> open: <one line each>)
 Final: complete (review clean | <count> parked)
-Hand-over: <task branch>: base <sha7>, top <sha7>, line <T-n ... T-m>, <gate> exit <code>, ...
+Hand-over: <task branch>: parent <branch>, base <sha7>, top <sha7>, line <T-n ... T-m>, <gate> exit <code>, ...
 ```
 
-Read each task's top from its latest `report` or `moved` line. Write the `fix request` line when you send a fix request.
+Read each task's top from its latest `report` or `moved` line. Write the `fix request` line when you send a fix request. Write `parent <branch>` on each `started` line (step 3), each `moved` line (steps 3 to 5) and each `Hand-over` line (step 6).
 
 To resume, read the ledger when its first line names this feature folder. Skip every setup line it holds and every task with a `complete` line. Then resume as follows:
 - A task with a `started` line and no `report`: read `git log <base>..<branch>`. Resume its implementer through SendMessage, or dispatch a fresh one on the same branch. Before a fresh dispatch, check that no earlier implementer of that task still runs. If one runs, resume it through SendMessage.
 - A task whose last line is `report BLOCKED`: ask the user its open questions. With an `answered` line, resume the implementer with the answer.
 - Steps 4 to 6: resume after the last ledger line of the step (`Gates` lines, `Final` lines, `Hand-over` lines).
+- Every task `complete` and no `Gates` line: check each sibling's worktree with `git -C <worktree> status` for a rebase in progress. Abort each one first with `git -C <worktree> rebase --abort`. Then redo the straightening of step 3 for each sibling and its children whose latest base is not the top it should sit on.
 - A `fix request` line with no later `moved` line: resume that implementer through SendMessage and wait for its reply. Send no second request.
 
 ## 1. Set up
@@ -72,19 +77,20 @@ To resume, read the ledger when its first line names this feature folder. Skip e
 2. Read the ledger, if it exists, and resume as the Ledger section says.
 3. Check the main checkout for uncommitted changes. With any, stop as Questions and stops says.
 4. Find the gate commands the repo configures, in its package scripts, Makefile, CI config or agent instructions. Name each resource outside the checkout that a gate needs, such as a test database.
-5. Ask the user one round: the feature branch, and the confirmation of each resource from item 4. Suggest a new feature branch from the default branch, named by the repo's convention, or use one the user names.
-6. Create the feature branch locally when it is new. Write the setup lines to the ledger. Add `<feature folder>/run/` and `**/.claude/worktrees/` to `.git/info/exclude` when missing, so the ledger, the logs and the worktrees never show as uncommitted changes. When nothing is installed in the main checkout, install the dependencies there.
+5. Serialize the blockers as step 2 says, and write nothing yet. List each fork in the serialized order: a task with two or more tasks built directly on it.
+6. Ask the user one round: the feature branch, the confirmation of each resource from item 4, and for each fork whether to straighten it into one line or keep it separate. Recommend "straighten into one line". Suggest a new feature branch from the default branch, named by the repo's convention, or use one the user names.
+7. Create the feature branch locally when it is new. Write the setup lines and the `Edge` lines of step 2 to the ledger. Add `<feature folder>/run/` and `**/.claude/worktrees/` to `.git/info/exclude` when missing, so the ledger, the logs and the worktrees never show as uncommitted changes. When nothing is installed in the main checkout, install the dependencies there.
 
-Done when: the ledger names the gates, the confirmed resources and the feature branch.
+Done when: the ledger names the gates, the confirmed resources, the feature branch and each fork kept separate.
 
 ## 2. Order the tasks
 
-A task is **ready** when every task that blocks it has a `complete` line.
+Setup item 5 already serialized the blockers by the rules below and wrote the `Edge` lines. At this step, only the readiness rule runs. A task is **ready** when every task that blocks it has a `complete` line.
 
 A branch has one parent, so serialize the blockers:
 1. Drop each edge already implied through other edges.
 2. For a task with two or more blockers, chain those blockers in a topological order of the plan, every task after its blockers, with the table order for ties. Each blocker after the first is blocked by the one before it. Repeat until every task has at most one blocker.
-3. Write each added edge to the ledger. The task then branches from the last of its blockers.
+3. Write each added edge to the ledger with the setup lines (setup item 7). The task then branches from the last of its blockers.
 
 When the blockers of a task are already built on separate branches, as on resume or when the user names tasks, stop as Questions and stops says.
 
@@ -113,7 +119,9 @@ Decisions and departures of earlier tasks that this task consumes:
 
 Run every gate and every rebase inside the task's own worktree (`git -C <worktree>`). Name the worktree and the branch in every message that resumes an implementer.
 
-Done when: every task to run has a `complete` line.
+After every task has a `complete` line, straighten each fork the user did not keep separate into one line. Take the siblings in the plan's topological order, with the table order for ties. Rebase each sibling onto the top of the line through the sibling before it. That top is the last branch built on it, not that sibling's own branch. Run `git -C <sibling worktree> rebase --onto <that top> <old top below> <branch>`. `<old top below>` is the sibling's base from its latest `report` or `moved` line. Rebase the children of each moved sibling by the rule in step 5 item 5. Write a `moved` line for each branch that moves. A conflict follows the rebase-conflict rule in step 5 item 5. A fork kept separate stays as built.
+
+Done when: every task to run has a `complete` line, and each fork not kept separate is one line.
 
 ## 4. Check the gates
 
@@ -140,8 +148,8 @@ Done when: no Critical or Important finding is open, or each one left is a stop 
 ## 6. Hand over
 
 1. Ask the user every held `blocks: none` question, in one round. For each one, the user resolves it, folds it into a later task, or leaves it open. Add the ones left open to `open-items.md`. Name the document, the task and the mark (`blocks: T-<n>` or `blocks: none`), as `implement` writes them.
-2. Append the `Hand-over` section to the ledger: one entry per task branch, with its base, top, line, and gates with exit codes.
+2. Append the `Hand-over` section to the ledger: one entry per task branch, with its parent, base, top, line, and gates with exit codes.
 3. Send the user one message. It holds the verdict and each line, with its branches in order, top commit, and gates with their exit codes. It also holds the decisions to confirm and the departures, in plain words. Last, it holds the parked findings, the "fix before push" findings still open after five rounds, and the ledger path.
-4. Call the Skill tool with the finishing skill, with the branch list. Until a finishing skill exists, end the turn after item 3.
+4. Call the Skill tool with `elayeek-ai:finish-branch`, passing the ledger path.
 
 Done when: the user has the hand-over, and every held question has an answer or sits in `open-items.md`.
