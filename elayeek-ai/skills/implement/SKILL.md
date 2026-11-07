@@ -37,6 +37,8 @@ When the user or the calling skill says where the task runs, in this session or 
 
 ## 1. Read the task
 
+A fix request: see Fix request.
+
 Read the task and everything it points to:
 - **A plan task**: its section of `plan.md`, each design decision and contract it consumes from the tech spec, the tech spec's testing decisions, and each spec behavior it cites.
 - **A tech spec**: the whole tech spec, and the spec behaviors it cites.
@@ -102,3 +104,7 @@ When a skill called you, your final message is the report. The calling skill wri
 When the user called you, add each question to `open-items.md` when the feature folder has one. The feature folder is the folder that holds `plan.md` or `tech-spec.md`. Name the document and the task. Add the mark: `blocks: T-<n>` (for a question that blocks this task or T-<n>), `blocks: the tech spec` when there is no plan, or `blocks: none`. Then send the user the report as one message, in plain words, with an ID only in parentheses as a pointer, and end the turn.
 
 Done when: the caller or the user has the report.
+
+## Fix request
+
+When the prompt holds a fix request, read the task (step 1), then do only this section. A calling skill sends findings or a gate log for a task this skill already built. Fix them on the same branch. Run the tests that cover the changed code and every gate, then commit. Questions and stops apply; a stop replies `BLOCKED` with the question. Reply with the new head commit and each gate's exit code, and list any decisions and departures made in the fix. Run no new review in this path.
