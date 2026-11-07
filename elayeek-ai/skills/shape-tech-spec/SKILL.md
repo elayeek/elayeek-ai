@@ -27,6 +27,8 @@ Write `tech-spec.md` where this feature's tech spec or plan already is. Source d
 
 Read the sources: the spec document, a ticket, other documents the user names, and the conversation. Then scan the repo: the modules the work changes, the patterns to copy, the test setup, and the code at risk. Check that every path and name you will cite exists.
 
+Finding facts is your job; decisions are the user's. Look up every fact the repo, and the repos it calls or shares data with, can tell you, and ask the user only for what you cannot look up. Find every other runtime that reads or writes the persisted or shared state this story changes (a table, column, queue, file or cache), such as another repo, a job or a dashboard, and how each one is deployed.
+
 Sort what you find:
 - **A behavior no source settles**: stop and name the gap to the user. It belongs in the spec.
 - **A source and other code or documents disagree**: follow the source. List the disagreement as a design decision, with the other side as the alternative. When the other side is code that runs, also record it in `open-items.md` as an open question.
@@ -35,7 +37,7 @@ Sort what you find:
 
 `open-items.md` sits beside `tech-spec.md`. It is the one home for the open questions and follow-ups of every document in the folder. Each item names the document it belongs to, and whether it blocks that document's approval. It never goes to an implementer. A follow-up worth noting but not worth handling now goes there too.
 
-Done when: every behavior the work needs is settled by a source or named to the user, and every design decision has a recommended choice.
+Done when: every behavior the work needs is settled by a source or named to the user, every runtime that reads or writes the changed state is named with how it is deployed, and every design decision has a recommended choice.
 
 ## 3. Confirm the foundation decisions
 
@@ -54,8 +56,9 @@ Fill the template below. A section with nothing in it says "None."
 - **Design decisions**: each with its source, or "proposed here", plus the alternative and the cost if wrong. A type that crosses a module boundary, or that more than one part of the change uses, is a design decision, and its shape goes in a contract.
 - **Contracts**: the only code in the tech spec. Everything else is described in words.
 - **Testing decisions**: the test level the sources ask for. A behavior that crosses a boundary, such as the database, a webhook or another service, is tested through that boundary. Mock only what the repo cannot run, and name the reason. Point to existing tests to copy as a path plus a name, or write `none found`.
+- **Release**: the deploy order across this repo and every runtime that reads or writes the state the story changes, the flag order, the data that must exist before a deploy, the rollback order, and, for each time that old and new code run side by side (a staged or rolling deploy, a rollback, another runtime that deploys on its own schedule), which version handles each new input and write. A story with nothing to order says "None."
 
-Done when: every section is filled or says "None.", and every path and name exists in the repo.
+Done when: every section is filled or says "None.", and every path and name exists in the repo, or in the other repo it names.
 
 ~~~markdown
 # Tech spec: <the story, in plain words>
@@ -83,6 +86,9 @@ Relied on by: <modules or decisions>.
 
 ## Testing decisions
 - <behaviors or area>: through <boundary>; mocks: <what and why, or none>; copy: <path (name), or none found>.
+
+## Release
+<deploy order, flag order, data gates before a deploy, rollback order, which version handles each new input and write while old and new code run side by side>
 
 ## Out of scope
 - <item>
@@ -115,8 +121,10 @@ Done when: the user approves every design decision, and no item that blocks the 
 
 ## 7. After approval
 
+When shape-plan called this skill, do item 1, then return to that run at its step 2 instead of items 2 to 4.
+
 1. Run `git check-ignore -q <folder>`. When the folder is ignored, there is no commit. When git does not ignore it, ask the user before you commit, and commit only the files this skill wrote or changed, by path.
-2. When `plan.md` exists beside the tech spec, list the tasks that cite an ID this revision removed, split or merged, and ask: "Revise the plan now?"
+2. When `plan.md` exists beside the tech spec, list the tasks that cite an ID this revision changed, removed, split or merged, and ask: "Revise the plan now?"
 3. When no plan exists, ask: "Shape the plan now?"
 4. On yes to either, call the Skill tool with `elayeek-ai:shape-plan`.
 
