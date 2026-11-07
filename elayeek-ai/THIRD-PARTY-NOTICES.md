@@ -10,9 +10,9 @@ These skills started as copies of mattpocock-skills 1.3.1 (`claude-plugins-offic
 | `codebase-design` | `skills/engineering/codebase-design` |
 | `domain-modeling` | `skills/engineering/domain-modeling` |
 | `diagnosing-bugs` | `skills/engineering/diagnosing-bugs` |
-| `grilling` | `skills/productivity/grilling` |
-| `grill-me` | `skills/productivity/grill-me` |
-| `grill-with-docs` | `skills/engineering/grill-with-docs` |
+| `co-thinking` | `skills/productivity/grilling` |
+| `think-with-me` | `skills/productivity/grill-me` |
+| `think-with-docs` | `skills/engineering/grill-with-docs` |
 | `writing-for-agents` | `skills/productivity/writing-for-agents` |
 | `wait-what` | `skills/productivity/wait-what` |
 

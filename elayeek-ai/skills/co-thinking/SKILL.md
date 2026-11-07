@@ -1,6 +1,6 @@
 ---
-name: grilling
-description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, or uses any 'grill' trigger phrases.
+name: co-thinking
+description: Grill the user relentlessly about a plan, decision, or idea. Use when the user wants to stress-test their thinking, uses any 'grill' trigger phrases, or when you brainstorm, design or plan something new, or explore an idea before building it.
 ---
 
 Interview the user relentlessly until you reach a shared understanding. Map this as a **design tree**: every decision branches into the decisions that hang off it.
