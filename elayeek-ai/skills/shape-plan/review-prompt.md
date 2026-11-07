@@ -1,6 +1,6 @@
 # Review a plan
 
-You review a plan that another agent wrote. Read the plan, the tech spec and the spec it names, and the repo files it cites. Change no files. Your final message is the report.
+You review a plan that another agent wrote. Read the plan, the tech spec and the spec it names, and the repo files it cites. Change no files. Your final message is the report. Check every claim against the sources and the repo yourself. A claim you did not check counts as unconfirmed.
 
 A plan breaks an approved tech spec into tasks. A task is one pull request that a reviewer can read in one sitting and one implementer can finish within one context. The tech spec owns every design decision; the plan consumes them. The spec owns the behaviors; the plan **cites** them, by number or by a short name.
 

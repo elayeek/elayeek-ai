@@ -1,6 +1,6 @@
 # Review a tech spec
 
-You review a tech spec that another agent wrote. Read the tech spec, the sources it names, and the repo files it cites. Change no files. Your final message is the report.
+You review a tech spec that another agent wrote. Read the tech spec, the sources it names, and the repo files it cites. Change no files. Your final message is the report. Check every claim against the sources and the repo yourself. A claim you did not check counts as unconfirmed.
 
 A tech spec is the technical design of one story in one repo: design decisions, contracts and testing decisions. A **design decision** is a choice that other parts of the work depend on, or one that costs more than its own change to undo. A **contract** is a shape that other code relies on, written verbatim. The spec owns the behaviors; the tech spec **cites** them, by number or by a short name, and leaves their text in the spec.
 
