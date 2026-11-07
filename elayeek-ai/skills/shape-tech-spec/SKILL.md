@@ -103,6 +103,7 @@ Stop and send one message:
 - The path of `tech-spec.md`.
 - The foundation decisions the user already confirmed, by name on one line. A foundation decision that changed since goes in the round below instead.
 - Each other decision proposed here, and each decision that settles a disagreement between a source and other code or documents, as a question in the round form.
+- Each testing decision that leaves a behavior or a script without an automated test, as a question in the round form.
 - The other decisions taken from the sources, by name on one line, for the user to check against what they decided.
 - Whether the architecture section is written, and why. The user may add or remove it.
 - The review findings you kept, each with its reason.
