@@ -101,7 +101,7 @@ Write the report:
 
 When a skill called you, your final message is the report. The calling skill writes it to its ledger. Implement keeps no ledger.
 
-When the user called you, add each question to `open-items.md` when the feature folder has one. The feature folder is the folder that holds `plan.md` or `tech-spec.md`. Name the document and the task. Add the mark: `blocks: T-<n>` (for a question that blocks this task or T-<n>), `blocks: the tech spec` when there is no plan, or `blocks: none`. Then send the user the report as one message, in plain words, with an ID only in parentheses as a pointer, and end the turn.
+When the user called you, add each question to `open-items.md` when the feature folder has one. The feature folder is the folder that holds `plan.md` or `tech-spec.md`. Name the document and the task. Add the mark: `blocks: T-<n>` (for a question that blocks this task or T-<n>), `blocks: the tech spec` when there is no plan, or `blocks: none`. Then send the user the report as one message, in plain words, with an ID only in parentheses as a pointer. End the report with the question "Finish the branch now?". On yes, call the Skill tool with `elayeek-ai:finish-branch`, with this branch, its parent and its worktree. The parent is the branch the task branch was created from (step 2, branch item), else the branch `git merge-base` suggests. Otherwise end the turn.
 
 Done when: the caller or the user has the report.
 
