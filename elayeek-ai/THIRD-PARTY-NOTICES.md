@@ -1,3 +1,22 @@
+# Third-party notices
+
+## mattpocock-skills 1.3.1
+
+These skills started as copies of mattpocock-skills 1.3.1 (`claude-plugins-official/mattpocock-skills`). Some are adapted. Codex metadata files (`agents/openai.yaml`) are not copied.
+
+| Skill here | Source path |
+|---|---|
+| `tdd` | `skills/engineering/tdd` |
+| `codebase-design` | `skills/engineering/codebase-design` |
+| `domain-modeling` | `skills/engineering/domain-modeling` |
+| `diagnosing-bugs` | `skills/engineering/diagnosing-bugs` |
+| `grilling` | `skills/productivity/grilling` |
+| `grill-me` | `skills/productivity/grill-me` |
+| `grill-with-docs` | `skills/engineering/grill-with-docs` |
+| `writing-for-agents` | `skills/productivity/writing-for-agents` |
+| `wait-what` | `skills/productivity/wait-what` |
+
+```
 MIT License
 
 Copyright (c) 2026 Matt Pocock
@@ -19,3 +38,4 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+```
