@@ -74,7 +74,7 @@ Done when: every behavior and the observable state from step 1 hold, each tested
 
 ## 4. Review
 
-1. Read `${CLAUDE_SKILL_DIR}/review-prompt.md`, fill in the first block with the diff `<base>..HEAD`, and dispatch a fresh `general-purpose` agent with it. Use `sonnet`, or `opus` when the task touches data integrity, concurrency, security or algorithm correctness. Set effort `medium`.
+1. Read `${CLAUDE_SKILL_DIR}/review-prompt.md`, fill in the first block with the diff `<base>..HEAD`, and dispatch a fresh `general-purpose` agent with it. Use `opus` when the task changes stored or shared data, concurrency, auth or PHI, or turns on algorithm correctness; otherwise `sonnet`. Effort `medium`, one level up or down with the reason.
 2. The dispatch runs in the background. Wait for the reviewer's report before you go on.
 3. Fix each Critical and Important finding and each spec gap. Run the tests that cover the changed code and the gates, then commit the fix as in step 3.
 4. Resume the same reviewer through SendMessage with the re-review block of `review-prompt.md`, and wait for its report. If the reviewer cannot be resumed, dispatch a fresh reviewer with the first block and pass it the last report.
