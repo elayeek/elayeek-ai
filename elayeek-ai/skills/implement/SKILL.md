@@ -76,11 +76,10 @@ Done when: every behavior and the observable state from step 1 hold, each tested
 
 ## 4. Review
 
-1. Read `${CLAUDE_SKILL_DIR}/review-prompt.md`, fill in the first block with the diff `<base>..HEAD`, and dispatch a fresh `general-purpose` agent with it. Use `opus` when the task changes stored or shared data, concurrency, auth or PHI, or turns on algorithm correctness; otherwise `sonnet`. Effort `medium`, one level up or down with the reason.
-2. The dispatch runs in the background. Wait for the reviewer's report before you go on.
-3. Fix each Critical and Important finding and each spec gap. Run the tests that cover the changed code and the gates, then commit the fix as in step 3.
-4. Resume the same reviewer through SendMessage with the re-review block of `review-prompt.md`, and wait for its report. If the reviewer cannot be resumed, dispatch a fresh reviewer with the first block and pass it the last report.
-5. Repeat items 3 and 4 up to five rounds. Minor findings are parked: list them in the report, and leave them unfixed.
+1. Call the Skill tool with `elayeek-ai:review-code`. Give it the diff `<base>..HEAD`, the branch and the checkout path, the task as the intent, the tech spec and spec paths, the testing decisions (from the tech spec, or the seams confirmed or decided in step 2), and your account: commits, decisions and departures. Wait for its report before you go on.
+2. Fix each Critical and Important finding and each spec gap. Run the tests that cover the changed code and the gates, then commit the fix as in step 3.
+3. Call `elayeek-ai:review-code` for the re-review, with the fix range `<last reviewed sha>..HEAD` and your account of the fix. Wait for its report.
+4. Repeat items 2 and 3 up to five rounds. Minor findings are parked: list them in the report, and leave them unfixed.
 
 After five rounds, a Critical or Important finding that is still open is a stop when it changes behavior or blocks a later task. Park every other one, with the reason.
 

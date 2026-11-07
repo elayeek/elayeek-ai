@@ -29,6 +29,7 @@ Before you describe a skill beyond its line here, read that skill's SKILL.md. Th
 
 - `handoff`: write a file a fresh session continues from.
 - `fan-out-research`: scan a corpus too large for one agent with several analyst agents.
+- `review-code`: a fresh agent reviews a diff against its intent and reports findings by severity; it fixes nothing.
 - `receiving-review`: handle PR review comments, chat objections or reviewer findings.
 - `wait-what`: the last message did not land; the agent re-pitches it.
 - `tdd`: build test-first, one red-green slice at a time.

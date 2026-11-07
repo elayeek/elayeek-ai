@@ -135,12 +135,12 @@ Done when: every gate exits 0 on the top of every line.
 
 Do this step only when the run has two or more tasks.
 
-1. Read `${CLAUDE_SKILL_DIR}/final-review-prompt.md`, fill in the first block, and dispatch a fresh `general-purpose` agent on `opus`, effort `medium`. Write the reviewer's line to the ledger. Wait for its report.
+1. Call the Skill tool with `elayeek-ai:review-code`. Give it the whole plan as the intent, and say that `implement` reviewed each task: the plan, tech spec and spec paths, one diff per line (`<feature branch sha>..<line top sha>`, its branches bottom to top, the checkout path), and the parked findings and held questions from the ledger. Raise the tier to `opus`. Write the reviewer's line to the ledger. Wait for its report.
 2. Send each Critical or Important finding, and each parked finding the reviewer marks "fix before push", as a fix request to the implementer of the task whose code it names. The request holds the findings, the worktree and the branch. When that implementer is gone, dispatch a fresh one as step 4 says.
 3. A finding that names the code of two tasks goes to the higher task in the line, the one built on the other. When the two tasks sit on different lines, stop as Questions and stops says.
 4. A plan-mandated finding follows the same rule as in `implement`. The code stays as the design says. Record it at once as a question and leave it out of the re-review. It is a stop when it is Critical or costly to undo. A fix after merge would need a migration, a data repair, or a change across other tasks or services. Otherwise it is a `blocks: none` question for the hand-over.
 5. Each fix lands on that task's branch. Before the re-review, rebase every child of each fixed branch, bottom-up, inside each child's worktree: `git -C <child worktree> rebase --onto <new top below> <old top below> <branch>`. `<old top below>` is the child's base, from its latest `report` or `moved` line. These branches are local, so a rebase rewrites nothing anyone else holds. When a child rebase conflicts, run `git -C <child worktree> rebase --abort`. Then send the child's implementer a fix request to rebase onto the new parent top and resolve the conflict. When it cannot, it replies `BLOCKED` and the run stops for the user. Write a `moved` line for each fixed or rebased branch. Run every gate on each line top that moved.
-6. Resume the reviewer with the re-review block. Write the `fix round` line. Repeat up to five rounds.
+6. Call `elayeek-ai:review-code` for the re-review, with each line that moved (`<old top sha>..<new top sha>`) and the fixes made. Write the `fix round` line. Repeat up to five rounds.
 7. Park each Minor finding in the ledger, and list it in the hand-over.
 
 Done when: no Critical or Important finding is open, or each one left is a stop or parked, and every gate exits 0 on every line top.
