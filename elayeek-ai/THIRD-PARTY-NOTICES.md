@@ -15,6 +15,7 @@ These skills started as copies of mattpocock-skills 1.3.1 (`claude-plugins-offic
 | `think-with-docs` | `skills/engineering/grill-with-docs` |
 | `writing-for-agents` | `skills/productivity/writing-for-agents` |
 | `wait-what` | `skills/productivity/wait-what` |
+| `ask-elaye` (PHASE-BOUNDARIES.md and structure) | `skills/engineering/ask-matt` |
 
 ```
 MIT License
