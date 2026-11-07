@@ -4,7 +4,6 @@ This is where I back up random projects and tools I make for myself. It doubles 
 
 | Plugin | Description |
 |---|---|
-| [`deslop`](./deslop) | Find AI-authored slop in a change with read-only finder agents, grade each finding with a verifier, then fix the ones you pick |
 | [`elayeek-ai`](./elayeek-ai) | A skill framework: workflow skills that load only when a task needs them |
 
 ## elayeek-ai skills
@@ -22,7 +21,6 @@ This is where I back up random projects and tools I make for myself. It doubles 
 
 ```
 /plugin marketplace add elayeek/elayeek-ai
-/plugin install deslop@elayeek-ai
 /plugin install elayeek-ai@elayeek-ai
 ```
 
@@ -43,7 +41,7 @@ Add this to the project's `.claude/settings.json`:
   "extraKnownMarketplaces": {
     "elayeek-ai": { "source": { "source": "github", "repo": "elayeek/elayeek-ai" } }
   },
-  "enabledPlugins": { "deslop@elayeek-ai": true }
+  "enabledPlugins": { "elayeek-ai@elayeek-ai": true }
 }
 ```
 

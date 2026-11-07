@@ -4,11 +4,6 @@
   "owner": { "name": "elaye", "email": "elayeek@gmail.com" },
   "plugins": [
     {
-      "name": "deslop",
-      "source": "./deslop",
-      "description": "Find AI-authored slop in a change with read-only finder agents, grade each finding with a verifier, then fix the ones you pick"
-    },
-    {
       "name": "elayeek-ai",
       "source": "./elayeek-ai",
       "description": "A skill framework: workflow skills that load only when a task needs them"

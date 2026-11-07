@@ -6,7 +6,7 @@ disable-model-invocation: true
 ---
 
 Deslop only what the change edited and what those edits affect. Finding runs in fresh
-`deslop:deslop-review-agent` subagents; checking runs in one `deslop:deslop-verify-agent`.
+`elayeek-ai:deslop-review-agent` subagents; checking runs in one `elayeek-ai:deslop-verify-agent`.
 Both edit nothing, and both read the lens file `${CLAUDE_SKILL_DIR}/lenses.md`. Fixing runs in fresh
 `general-purpose` subagents, on the findings the user picks. Every dispatch sets
 `model: sonnet`, except the verifier (`model: opus`) and the review of the fixes.
@@ -72,7 +72,7 @@ Before dispatch, ask the user to confirm the base, the head, the commit count, a
 outside the PRs the user named (when they named any), and every untracked file included. A
 whole-repo run asks nothing further here.
 
-Dispatch one `deslop:deslop-review-agent` per group, all in one message. Each prompt gives: the repo
+Dispatch one `elayeek-ai:deslop-review-agent` per group, all in one message. Each prompt gives: the repo
 root, the base (none in a whole-repo run), the group's files (with the old path and the
 `untracked` flag where they apply), the lens file path, and the context files. Each prompt ends
 with this paragraph, verbatim:
@@ -94,7 +94,7 @@ keeps its number through Report; drops leave gaps.
 
 ### Check the findings
 
-After all finders return, dispatch one `deslop:deslop-verify-agent`, `model: opus`, for all findings
+After all finders return, dispatch one `elayeek-ai:deslop-verify-agent`, `model: opus`, for all findings
 of the run. The prompt gives: the repo root, the base (none in a whole-repo run), the run's
 file list from Scope the diff (with the old path and the `untracked` flag where they apply),
 the lens file path, the context files, and every numbered finding, verbatim. The same shape

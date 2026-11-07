@@ -31,6 +31,7 @@ Before you describe a skill beyond its line here, read that skill's SKILL.md. Th
 - `fan-out-research`: scan a corpus too large for one agent with several analyst agents.
 - `review-code`: a fresh agent reviews a diff against its intent and reports findings by severity; it fixes nothing.
 - `receiving-review`: handle PR review comments, chat objections or reviewer findings.
+- `deslop`: find AI-authored slop in a change, grade each finding, then fix the ones you pick.
 - `wait-what`: the last message did not land; the agent re-pitches it.
 - `tdd`: build test-first, one red-green slice at a time.
 - `codebase-design`: deep-module vocabulary for a module's shape.
