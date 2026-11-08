@@ -44,7 +44,7 @@ Done when: every comment is either clear to fix or answered by the user.
 
 Fix each comment that is clear to fix.
 
-A comment is a **pattern** when it names a pattern ("everywhere", "all of these", "again"), or when it is the second comment that objects to the same kind of code. Sweep a pattern: search the whole branch for every instance, and fix all of them in one commit. For a minor kind, the sweep is one grep that you run yourself. A comment that is not a pattern gets a fix at its line only.
+A comment is a **pattern** when it names a pattern ("everywhere", "all of these", "again"), or when it is the second comment that objects to the same kind of code. Sweep a pattern: search the whole branch for every instance, and list every hit to the user, with each hit whose fix changes a type or a name marked as a decision, in one message. Fix the other hits in one commit, and fix the decision hits after the user answers. For a minor kind, the sweep is one grep that you run yourself. A comment that is not a pattern gets a fix at its line only.
 
 When a comment repeats an ask, do exactly what it asks, or ask one question. A repeat is an objection that an earlier reply said was fixed, or a request the user makes again after you offered an alternative. For the first kind, check again whether the earlier fix removed the problem.
 

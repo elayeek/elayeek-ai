@@ -35,4 +35,5 @@ When the shape of that interface is itself in question (how deep the module is, 
 
 - **Red before green.** Write the failing test first, then only enough code to pass it. Don't anticipate future tests or add speculative features.
 - **One slice at a time.** One seam, one test, one minimal implementation per cycle.
+- **Test only branches your code owns.** An assertion covers only a branch of the code you write. Code with no branch of its own (declarations, decorators, a SQL string) gets no unit test.
 - **Refactoring is not part of the loop.** It belongs to the cleanup check of the `review-code` skill, not the red → green implementation cycle.
