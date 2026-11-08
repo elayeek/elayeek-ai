@@ -1,6 +1,6 @@
 ---
 name: pull-request
-description: Use when you push a branch, open a pull request (PR), or update one with new commits, a new title or a new body, whether the user asks directly or another skill calls. Checks the gates, writes the title and body, and waits for the user's yes before each push.
+description: Use when you push a branch, open a pull request (PR), or update one with new commits, a new title or a new body (the PR description), whether the user asks directly or another skill calls. Checks the gates, writes the title and body, and waits for the user's yes before each push.
 ---
 
 # Pull request
@@ -64,6 +64,6 @@ Done when: the branch is pushed, and the PR's title and body describe what it do
 
 ## 5. Report
 
-Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result, when the body was edited; the side effects, when the user's message was the yes; and the decisions to confirm and the held questions. When a caller called this skill, return the same facts and the PR number to it instead.
+Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result, when this run wrote a body or comment; the side effects, when the user's message was the yes; and the decisions to confirm and the held questions. When a caller called this skill, return the same facts and the PR number to it instead.
 
 Done when: the user or the caller has the report.
