@@ -56,14 +56,14 @@ Done when: the PR is open with the right base, title, body, assignee and comment
 
 1. Compare what the PR does now with its title and body: `gh pr view <number> --json title,body`, against the branch's commits since the remote branch.
 2. When the meaning changed, or the user asks for a new title or body, save the current body to a file. Write the new title and body as `pr-body.md` says, with Write, and read the body back in full. A change that leaves the PR's meaning as it was keeps the title and body.
-3. Ask for the yes. One yes covers the title and body edit and its push. A push that rewrites the remote branch has its own yes, as above.
-4. Edit before the push: `gh pr edit <number> --title "<title>" --body-file <file>`. Read the body back with `gh pr view <number> --json body`.
+3. Ask for the yes. One yes covers the push, and the title and body edit when item 2 wrote one. A push that rewrites the remote branch has its own yes, as above.
+4. When item 2 wrote a new title and body, edit before the push: `gh pr edit <number> --title "<title>" --body-file <file>`, then read the body back with `gh pr view <number> --json body`.
 5. Push the branch with `git push`, or `--force-with-lease` on its own yes.
 
 Done when: the branch is pushed, and the PR's title and body describe what it does now.
 
 ## 5. Report
 
-Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result; the side effects, when the user's message was the yes; and the decisions to confirm and the held questions. When a caller called this skill, return the same facts and the PR number to it instead.
+Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result, when the body was edited; the side effects, when the user's message was the yes; and the decisions to confirm and the held questions. When a caller called this skill, return the same facts and the PR number to it instead.
 
 Done when: the user or the caller has the report.
