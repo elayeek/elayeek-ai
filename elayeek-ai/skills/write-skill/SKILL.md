@@ -78,7 +78,7 @@ For each dispatch step, read `skill-parts.md`, "Prompts a skill dispatches". For
 
 ### 9. Check and ship
 1. Do the checks in `skill-parts.md`, "Lint checks". Fix each hit.
-2. Dispatch one fresh agent to run one real task with the skill, with the real tools on a real input. You may set its model.
+2. Dispatch one fresh agent to run one real task with the skill, with the real tools on a real input. Set `model: sonnet` and `effort: medium` for it.
 3. Read the transcript of that run, not only its final message. A stated choice ("I would do B") is no evidence.
 4. Stop at each failure: give the user the failure and its transcript line.
 5. Add a targeted test only after the skill fails in real use. Give each variant at least 5 runs, plus a control run with no skill.

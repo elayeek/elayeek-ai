@@ -13,6 +13,7 @@ Inputs:
 - Tech spec: <path, or none>. Spec: <path, or none>.
 - Testing decisions:
 <the text from the tech spec, or the seams confirmed or decided, or none>
+- The user's objections on this branch, each one stated as a check: <each objection, or none>. Check the diff against each.
 - The implementer's account: <commits, decisions taken, departures, or none>. Treat it as claims, not as evidence.
 
 Method:

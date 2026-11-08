@@ -99,7 +99,7 @@ Relied on by: <modules or decisions>.
 
 ## 5. Have a fresh agent review it
 
-Dispatch an agent that did not write the tech spec. Give it `${CLAUDE_SKILL_DIR}/review-prompt.md` as its instructions, the repo path, the path of `tech-spec.md`, and each source. For a conversation source, write the behaviors into the prompt. Fix each finding. For a finding you keep, tell the user in step 6 why it stays.
+Dispatch an agent that did not write the tech spec, with `model: opus` and `effort: medium`. Give it `${CLAUDE_SKILL_DIR}/review-prompt.md` as its instructions, the repo path, the path of `tech-spec.md`, and each source. For a conversation source, write the behaviors into the prompt. Fix each finding. For a finding you keep, tell the user in step 6 why it stays.
 
 Done when: every finding is fixed or kept for the user.
 

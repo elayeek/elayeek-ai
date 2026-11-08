@@ -8,8 +8,8 @@ disable-model-invocation: true
 Deslop only what the change edited and what those edits affect. Finding runs in fresh
 `elayeek-ai:deslop-review-agent` subagents; checking runs in one `elayeek-ai:deslop-verify-agent`.
 Both edit nothing, and both read the lens file `${CLAUDE_SKILL_DIR}/lenses.md`. Fixing runs in fresh
-`general-purpose` subagents, on the findings the user picks. Every dispatch sets
-`model: sonnet`, except the verifier (`model: opus`) and the review of the fixes.
+`general-purpose` subagents, on the findings the user picks. Each fixer dispatch sets
+`model: sonnet` and `effort: medium`. The two agent types set their own model and effort.
 
 Parse $ARGUMENTS: every word names the change in plain words (default: the current branch).
 
@@ -208,7 +208,7 @@ for each other finding those files hold, until the set is closed. List each as r
 
 ### Review the fixes (at least one fix kept)
 
-Dispatch one built-in `Explore` agent with `model: opus` and this prompt:
+Dispatch one built-in `Explore` agent with `model: opus`, `effort: medium` and this prompt:
 
 ```
 Review each fix a slop cleanup made. Per finding, test: does the fix do what the finding says,

@@ -13,7 +13,7 @@ When the user calls you without a diff or without an intent, ask for the missing
 
 ## Review
 
-1. Fill in the first block of `${CLAUDE_SKILL_DIR}/review-prompt.md` from the inputs the caller gives. For a whole plan, pass on whether the caller states that each task was already reviewed. Dispatch a fresh `general-purpose` agent with it.
+1. Fill in the first block of `${CLAUDE_SKILL_DIR}/review-prompt.md` from the inputs the caller gives. For a whole plan, pass on whether the caller states that each task was already reviewed. Fill the user's objections on this branch, each one stated as a check, when the caller has them; otherwise none. Dispatch a fresh `general-purpose` agent with it.
 2. Set the model: `opus` when the change touches stored or shared data, concurrency, auth or PHI, or turns on algorithm correctness; otherwise `sonnet`. A caller may raise the tier. Set effort `medium`, one level up or down with the reason.
 3. The dispatch runs in the background. Wait for the reviewer's report.
 4. Return the report as the reviewer wrote it, with the reviewer's model, effort, reason for a changed effort, and agent id. When the user called you, give the user the report in chat and stop. The user decides.

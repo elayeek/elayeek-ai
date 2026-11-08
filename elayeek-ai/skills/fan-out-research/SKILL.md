@@ -37,6 +37,7 @@ One JSON line per unit, with these fields only:
 - Give each definition one example that counts and one that does not. Two analysts must not read the same term two ways.
 - Make the `evidence` field a pointer to the source line, so a reader can check a count. The script does not count it. Make every other field a number or a word from a fixed list. A script cannot count prose.
 - In every analyst prompt, write: "Read the rubric at <path> and follow it exactly. Return only the answer lines."
+- Dispatch each analyst with `model: sonnet` and `effort: medium`.
 - Use the same rubric file for every group that you compare. A changed rubric makes the comparison invalid.
 
 ## 3. Batch by input size

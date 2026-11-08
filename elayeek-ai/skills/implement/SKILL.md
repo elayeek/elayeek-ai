@@ -53,7 +53,7 @@ Done when: you can state what the task delivers, the observable state that shows
 1. **Clean checkout**: run the uncommitted-changes stop from Questions and stops.
 2. **Branch**: work on the branch you are given, or the one checked out. On the repo's default branch, first create a branch named by the repo's convention.
 3. **Base**: the base is the commit the caller gives, or else `git merge-base HEAD <default branch>`.
-4. **Gates**: use the gate commands the caller gives. Otherwise find the ones the repo configures, in its package scripts, Makefile, CI config or agent instructions. Run only configured gates; a repo without a test command has no test gate.
+4. **Gates**: use the gate commands the caller gives. Otherwise find the ones the repo configures, in its package scripts, Makefile, CI config or agent instructions. Run only configured gates; a typecheck or build script in the repo counts as a configured gate, and a repo without a test command has no test gate.
 5. **Resources**: when a gate needs a resource outside the checkout, use the caller's confirmation that it is ready. With none: when a skill called you, stop with status `BLOCKED` (resource not confirmed). When the user called you, ask the user once and end the turn.
 6. **Resume**: when the branch already holds commits for this task, read `git log <base>..HEAD` and continue from where they end.
 7. **Restate**: write one short message: what you build and the seams you test at. When there are no testing decisions and the user called you, ask the user to confirm the seams and end the turn. Otherwise continue without waiting.

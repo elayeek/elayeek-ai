@@ -56,7 +56,7 @@ Done when: every check exits 0.
 
 ## 5. Have a fresh agent check the fix diffs
 
-Dispatch an agent that did not write the fixes. Give it the fix diffs and every objection, on the PR, in chat or from a reviewer agent, each stated as a pattern to look for. It lists every instance of an objected pattern that the diffs add. Fix each instance it lists, then run step 4 again.
+Dispatch an agent that did not write the fixes, with `model: sonnet` and `effort: medium`. Give it the fix diffs and every objection, on the PR, in chat or from a reviewer agent, each stated as a pattern to look for. It lists every instance of an objected pattern that the diffs add. Fix each instance it lists, then run step 4 again.
 
 ## 6. Commit and push
 

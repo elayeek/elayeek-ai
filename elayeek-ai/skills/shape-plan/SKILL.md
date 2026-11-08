@@ -91,7 +91,7 @@ Tech spec: <path>. Spec: <path, ticket key, or "conversation, <date>">.
 
 ## 5. Have a fresh agent review it
 
-Dispatch an agent that did not write the plan. Give it `${CLAUDE_SKILL_DIR}/review-prompt.md` as its instructions, the repo path, the paths of `plan.md` and `tech-spec.md`, and the spec. For a conversation source, write the behaviors into the prompt. Fix each finding. For a finding you keep, tell the user in step 6 why it stays.
+Dispatch an agent that did not write the plan, with `model: opus` and `effort: medium`. Give it `${CLAUDE_SKILL_DIR}/review-prompt.md` as its instructions, the repo path, the paths of `plan.md` and `tech-spec.md`, and the spec. For a conversation source, write the behaviors into the prompt. Fix each finding. For a finding you keep, tell the user in step 6 why it stays.
 
 Done when: every finding is fixed or kept for the user.
 

@@ -48,7 +48,9 @@ Post one comment on each PR for what matters only while it is open. Leave out a 
 **Open questions:**
 - <each held question, with its mark>
 
-🤖 Written by Claude Code on behalf of elaye
+🤖 Written by Claude Code on behalf of <login>
 ```
+
+`<login>` is the account that `gh` runs as.
 
 For the feature branch PR, the comment lists the task PRs in merge order with their states, and the release order from the tech spec.
