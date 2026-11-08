@@ -20,6 +20,13 @@ Before you describe a skill beyond its line here, read that skill's SKILL.md. Th
 
 **`implement`** builds one task test-first with a fresh review, to local commits. The task is a plan task, a tech spec, or an ask agreed in the conversation with no documents. `implement-plan` calls it per task; call it yourself for a single task.
 
+Pick the rung by the size of the work:
+- One PR, no design decision → `implement` with no documents.
+- Design decisions, one PR → `shape-tech-spec`, then `implement`.
+- Several PRs → `shape-tech-spec`, `shape-plan`, `implement-plan`.
+
+The rung moves up when a design decision appears.
+
 ## On-ramps
 
 - **A bug** → `diagnosing-bugs`: a diagnosis loop for hard bugs and performance regressions.

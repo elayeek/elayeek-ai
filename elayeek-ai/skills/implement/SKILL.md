@@ -27,7 +27,7 @@ The spec, the tech spec and `plan.md` stay as they are; only their own `shape-` 
 
 Also stop at once when a gate stays red after five fix rounds, or when a gate needs a resource outside the checkout, such as a test database, that is missing or down after it was confirmed.
 
-Also stop at once when the checkout has uncommitted changes at the start. Ask the user to commit them, move them, or say to include them.
+Also stop at once when the checkout has uncommitted changes at the start. Ask the user to commit them or move them, unless the user or the calling skill says to include them.
 
 Every stop goes to step 5: write the report with status `BLOCKED` and the question in it, whoever called you.
 
@@ -38,6 +38,8 @@ When the user or the calling skill says where the task runs, in this session or 
 ## 1. Read the task
 
 A fix request: see Fix request.
+
+When the task is an ask agreed in the conversation with no documents, and the ask holds a design decision, stop before any code. Report `BLOCKED` with the design decision and the proposal to write a tech spec with `elayeek-ai:shape-tech-spec`.
 
 Read the task and everything it points to:
 - **A plan task**: its section of `plan.md`, each design decision and contract it consumes from the tech spec, the tech spec's testing decisions, and each spec behavior it cites.

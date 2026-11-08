@@ -7,6 +7,8 @@ description: Diagnosis loop for hard bugs and performance regressions. Use when 
 
 A discipline for hard bugs. Skip phases only when explicitly justified.
 
+This skill ends at a failing test and a confirmed cause. It does not write the fix: `elayeek-ai:implement` does, after the handoff in Phase 6.
+
 When exploring the codebase, read `GLOSSARY.md` (if it exists) to get a clear mental model of the relevant modules, and check ADRs in the area you're touching.
 
 ## Redact
@@ -17,9 +19,12 @@ If the redacted output is not enough to diagnose the bug, say so and ask the use
 
 ## Phase 1: Build a feedback loop
 
-**This is the skill.** Everything else is mechanical. If you have a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause; bisection, hypothesis-testing, and instrumentation all just consume it. If you don't have one, no amount of staring at code will save you.
+**This is the core of the skill.** With a **tight** pass/fail signal for the bug (one that goes red on _this_ bug), you will find the cause: bisection, hypothesis-testing, and instrumentation all just consume it. Without one, no amount of staring at code helps.
 
-Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give up.**
+### Before the loop
+
+- Read the full error message and stack trace: every line number, file path and error code.
+- Check recent changes: the git diff and recent commits, new dependencies, config changes, and environment differences.
 
 ### Ways to construct one, in roughly this order
 
@@ -34,8 +39,6 @@ Spend disproportionate effort here. **Be aggressive. Be creative. Refuse to give
 9. **Differential loop.** Run the same input through old-version vs new-version (or two configs) and diff outputs.
 10. **HITL bash script.** Last resort. If a human must click, drive _them_ with `scripts/hitl-loop.template.sh` so the loop is still structured. Captured output feeds back to you.
 
-Build the right feedback loop, and the bug is 90% fixed.
-
 ### Tighten the loop
 
 Treat the loop as a product. Once you have _a_ loop, **tighten** it:
@@ -44,7 +47,7 @@ Treat the loop as a product. Once you have _a_ loop, **tighten** it:
 - Can I make the signal sharper? (Assert on the specific symptom, not "didn't crash".)
 - Can I make it more deterministic? (Pin time, seed RNG, isolate filesystem, freeze network.)
 
-A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight, a debugging superpower.
+A 30-second flaky loop is barely better than no loop; a 2-second deterministic one is tight.
 
 ### Non-deterministic bugs
 
@@ -63,7 +66,7 @@ Phase 1 is done when the loop is **tight** and **red-capable**: you can name **o
 - [ ] **Fast**: seconds, not minutes.
 - [ ] **Agent-runnable**: you can run it unattended; a human in the loop only via `scripts/hitl-loop.template.sh`.
 
-If you catch yourself reading code to build a theory before this command exists, **stop: jumping straight to a hypothesis is the exact failure this skill prevents.** No red-capable command, no Phase 2.
+Reading code to build a theory before this command exists is the failure this skill prevents. No red-capable command, no Phase 2.
 
 ## Phase 2: Reproduce + minimise
 
@@ -71,15 +74,15 @@ Run the loop. Watch it go red as the bug appears.
 
 Confirm:
 
-- [ ] The loop produces the failure mode the **user** described, not a different failure that happens to be nearby. Wrong bug = wrong fix.
+- [ ] The loop produces the failure mode the **user** described, not a different failure that happens to be nearby. Wrong bug = wrong cause.
 - [ ] The failure is reproducible across multiple runs (or, for non-deterministic bugs, reproducible at a high enough rate to debug against).
-- [ ] You have captured the exact symptom (error message, wrong output, slow timing) so later phases can verify the fix actually addresses it.
+- [ ] You have captured the exact symptom (error message, wrong output, slow timing) so later phases can verify the cause explains it.
 
 ### Minimise
 
 Once it's red, shrink the repro to the **smallest scenario that still goes red**. Cut inputs, callers, config, data, and steps **one at a time**, re-running the loop after each cut, and keep only what's load-bearing for the failure.
 
-Why bother: a minimal repro shrinks the hypothesis space in Phase 3 (fewer moving parts left to suspect) and becomes the clean regression test in Phase 5.
+A minimal repro shrinks the hypothesis space in Phase 3 (fewer moving parts left to suspect) and becomes the failing test in Phase 5.
 
 Done when **every remaining element is load-bearing**: removing any one of them makes the loop go green.
 
@@ -95,7 +98,7 @@ Each hypothesis must be **falsifiable**: state the prediction it makes.
 
 If you cannot state the prediction, the hypothesis is a vibe: discard or sharpen it.
 
-**Show the ranked list to the user before testing.** They often have domain knowledge that re-ranks instantly ("we just deployed a change to #3"), or know hypotheses they've already ruled out. Cheap checkpoint, big time saver. Don't block on it; proceed with your ranking if the user is AFK.
+**Show the ranked list to the user before testing.** They often have domain knowledge that re-ranks instantly ("we just deployed a change to #3"), or know hypotheses they've already ruled out. Don't block on it; proceed with your ranking if the user is AFK.
 
 ## Phase 4: Instrument
 
@@ -107,32 +110,55 @@ Tool preference:
 2. **Targeted logs** at the boundaries that distinguish hypotheses.
 3. Never "log everything and grep".
 
+When the bug crosses several components (CI → build → signing, API → service → database), log what enters and what leaves each component in one run. The component where good data turns bad is the failing layer; continue inside it.
+
 **Tag every debug log** with a unique prefix, e.g. `[DEBUG-a4f2]`. Cleanup at the end becomes a single grep. Untagged logs survive; tagged logs die.
 
-**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect. Measure first, fix second.
+**Perf branch.** For performance regressions, logs are usually wrong. Instead: establish a baseline measurement (timing harness, `performance.now()`, profiler, query plan), then bisect.
 
-## Phase 5: Fix + regression test
+Done when one hypothesis's prediction held under a probe and the others are ruled out: that is the **confirmed cause**. Write it as the cause, the winning hypothesis, and the evidence.
 
-Write the regression test **before the fix**, but only if there is a **correct seam** for it.
+## Phase 5: Failing test
 
-A correct seam is one where the test exercises the **real bug pattern** as it occurs at the call site. If the only available seam is too shallow (single-caller test when the bug needs multiple callers, unit test that can't replicate the chain that triggered the bug), a regression test there gives false confidence.
+Write the failing test **only if** there is a **correct seam** for it.
 
-**If no correct seam exists, that itself is the finding.** Note it. The codebase architecture is preventing the bug from being locked down. Flag this for the next phase.
+A correct seam is one where the test exercises the **real bug pattern** as it occurs at the call site. If the only available seam is too shallow (single-caller test when the bug needs multiple callers, unit test that can't replicate the chain that triggered the bug), a test there gives false confidence.
+
+**If no correct seam exists, that itself is the finding.** The codebase architecture is preventing the bug from being locked down. Report it with the confirmed cause, and let the user decide; adding a seam is a design decision. Stop here; skip Phase 6's handoff.
 
 If a correct seam exists:
 
 1. Turn the minimised repro into a failing test at that seam.
 2. Watch it fail. If you forced the red by mutating code or a fixture, `diff` against a pristine copy to prove the mutation landed before you trust it.
-3. Apply the fix.
-4. Watch it pass.
-5. Re-run the Phase 1 feedback loop against the original (un-minimised) scenario.
+3. Keep the test as an uncommitted file. Do not write the fix.
 
-## Phase 6: Cleanup
+## Phase 6: Cleanup and handoff
 
-Required before declaring done:
+Required before the handoff:
 
-- [ ] Original repro no longer reproduces (re-run the Phase 1 loop)
-- [ ] Regression test passes (or absence of seam is documented)
 - [ ] All `[DEBUG-...]` instrumentation removed (`grep` the prefix)
-- [ ] Throwaway prototypes deleted (or moved to a clearly-marked debug location)
-- [ ] The hypothesis that turned out correct is stated in the commit / PR message, so the next debugger learns
+- [ ] Every throwaway prototype and temporary probe edit removed; `git status` shows only the failing test file
+- [ ] The failing test still goes red (run its command)
+
+Then:
+
+- **The user asked only for a diagnosis**: do not call `elayeek-ai:implement`. End with a report: the cause, the failing test, and the fix you propose.
+- **Otherwise** call the Skill tool with `elayeek-ai:implement`. Give it an ask that holds:
+  - the cause and the winning hypothesis, to state in the commit message so the next debugger learns;
+  - the failing test's path;
+  - the command that shows it red;
+  - the words "include the failing test file", because implement stops on uncommitted changes unless told to include them.
+
+When implement reports `DONE`, re-run the Phase 1 loop on the original scenario. Green: done. Red: the cause was wrong (see below).
+
+When implement stops `BLOCKED` because the failing test stays red, the cause was wrong (see below). Pass any other `BLOCKED` question to the user.
+
+### When the cause was wrong
+
+Before the next attempt, name the failed fix's commits to the user and ask whether to revert them. Drop the winning hypothesis and go back to Phase 3 with what the failed fix taught you.
+
+After 3 wrong causes, stop and question the design with the user. Signs that the design is the problem:
+
+- Each fix reveals shared state or coupling in a different place.
+- Each fix needs a large refactor.
+- Each fix creates new symptoms elsewhere.
