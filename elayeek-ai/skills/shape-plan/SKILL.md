@@ -25,6 +25,8 @@ Write `plan.md` where `tech-spec.md` is.
 
 Read the tech spec and the spec it cites. Finding facts is your job; decisions are the user's. Open every repo path the tech spec cites yourself, and check each name in it. A path or name that does not exist is a gap in the tech spec: handle it as in step 3. With no tech spec, stop and ask: "Shape the tech spec first?" On yes, call the Skill tool with `elayeek-ai:shape-tech-spec`.
 
+A source can point to content that only a connected tool can read, such as an MCP server for tickets, designs or documents. When you need that content and the tool is not connected (call it to check; a tool search that finds nothing proves nothing), ask the user in one message: connect it, paste the content, or go on without it. List each item you go on without in `open-items.md`.
+
 `open-items.md` sits beside `plan.md`. It is the one home for the open questions and follow-ups of every document in the folder. Each item names the document it belongs to, and whether it blocks that document's approval. It never goes to an implementer.
 
 Done when: the tech spec exists, and every path and name it cites exists in the repo, or in the other repo it names.

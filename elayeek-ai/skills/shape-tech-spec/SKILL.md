@@ -27,6 +27,8 @@ Write `tech-spec.md` where this feature's tech spec or plan already is. Source d
 
 Read the sources: the spec document, a ticket, other documents the user names, and the conversation. Then scan the repo: the modules the work changes, the patterns to copy, the test setup, and the code at risk. Check that every path and name you will cite exists.
 
+A source can point to content that only a connected tool can read, such as an MCP server for tickets, designs or documents. When you need that content and the tool is not connected (call it to check; a tool search that finds nothing proves nothing), ask the user in one message: connect it, paste the content, or go on without it. List each item you go on without in `open-items.md`.
+
 Finding facts is your job; decisions are the user's. Look up every fact the repo, and the repos it calls or shares data with, can tell you, and ask the user only for what you cannot look up. Find every other runtime that reads or writes the persisted or shared state this story changes (a table, column, queue, file or cache), such as another repo, a job or a dashboard, and how each one is deployed.
 
 Sort what you find:
