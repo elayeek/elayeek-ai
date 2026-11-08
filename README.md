@@ -15,7 +15,6 @@ This is where I back up random projects and tools I make for myself. It doubles 
 | `receiving-review` | Collect, judge, fix, and reply to review comments on a pull request |
 | `handoff` | Write a handoff file that a fresh session continues from |
 | `fan-out-research` | Answer one research question over a large corpus with several analyst agents |
-| `write-skill` | Write or revise a Claude Code skill as a standalone procedure |
 
 ## Install
 

@@ -37,7 +37,6 @@ Before you describe a skill beyond its line here, read that skill's SKILL.md. Th
 - `codebase-design`: deep-module vocabulary for a module's shape.
 - `domain-modeling`: sharpen the project's domain language, glossary and ADRs.
 - `writing-for-agents`: reference for writing documents agents read.
-- `write-skill`: the steps to write or revise a skill.
 
 ## Phase boundaries
 
