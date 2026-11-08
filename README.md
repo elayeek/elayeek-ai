@@ -26,7 +26,7 @@ Skills marked "/ only" load only when you type them as a slash command.
 | `tdd` | Build a feature or fix a bug test-first, red-green-refactor |
 | `diagnosing-bugs` | Find the cause of a hard bug or regression, then hand the fix to `implement` |
 | `pull-request` | Check the gates, then push a branch and open its PR, or update an open PR |
-| `finish-branch` | Check the gates, then open PRs through `pull-request`, keep the branches local, or merge locally |
+| `finish-work` | Check the gates, then open PRs through `pull-request`, keep the branches local, or merge locally |
 
 **Review**
 
@@ -64,7 +64,7 @@ Pick the path by the size of the work:
 - Design decisions in one PR: `shape-tech-spec`, then `implement`.
 - Several PRs: `shape-tech-spec`, then `shape-plan`, then `implement-plan`.
 
-Each path ends with `finish-branch`. Not sure which path fits? Run `/ask-elaye`.
+Each path ends with `finish-work`. Not sure which path fits? Run `/ask-elaye`.
 
 ## Install
 

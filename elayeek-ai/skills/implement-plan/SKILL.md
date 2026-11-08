@@ -31,7 +31,7 @@ Stop and ask when:
 
 When an implementer returns `BLOCKED`, start no new task. Let the running tasks finish, then ask all open questions in one round. On the answer, resume the blocked implementer through SendMessage with it.
 
-When the user stops the run before all tasks are done, start no new task. Let the running tasks report. Then hand over the complete tasks (step 6) and call `elayeek-ai:finish-branch` with them. Write `Stopped: by the user (complete: T-a, T-b)` to the ledger, and say "stopped early" in the call. Unfinished tasks stay in the ledger for a later run. A task that reports `BLOCKED` stays unfinished, and its questions go into the hand-over. Say in the hand-over that the final review did not run on the complete tasks.
+When the user stops the run before all tasks are done, start no new task. Let the running tasks report. Then hand over the complete tasks (step 6) and call `elayeek-ai:finish-work` with them. Write `Stopped: by the user (complete: T-a, T-b)` to the ledger, and say "stopped early" in the call. Unfinished tasks stay in the ledger for a later run. A task that reports `BLOCKED` stays unfinished, and its questions go into the hand-over. Say in the hand-over that the final review did not run on the complete tasks.
 
 ## Ledger
 
@@ -150,6 +150,6 @@ Done when: no Critical or Important finding is open, or each one left is a stop 
 1. Ask the user every held `blocks: none` question, in one round. For each one, the user resolves it, folds it into a later task, or leaves it open. Add the ones left open to `open-items.md`. Name the document, the task and the mark (`blocks: T-<n>` or `blocks: none`), as `implement` writes them.
 2. Append the `Hand-over` section to the ledger: one entry per task branch, with its parent, base, top, line, and gates with exit codes.
 3. Send the user one message. It holds the verdict and each line, with its branches in order, top commit, and gates with their exit codes. It also holds the decisions to confirm and the departures, in plain words. Last, it holds the parked findings, the "fix before push" findings still open after five rounds, and the ledger path.
-4. Call the Skill tool with `elayeek-ai:finish-branch`, passing the ledger path.
+4. Call the Skill tool with `elayeek-ai:finish-work`, passing the ledger path.
 
 Done when: the user has the hand-over, and every held question has an answer or sits in `open-items.md`.

@@ -40,8 +40,6 @@ The body is the commit message when the branch is squash-merged. Write it for a 
 Post one comment on each PR for what matters only while it is open. Leave out a part that has nothing in it.
 
 ```markdown
-**Stack:** <base branch>; <PR below, or none>; <PR above, or none>
-
 **To confirm:**
 - <each "decided, please confirm" decision still open>
 
