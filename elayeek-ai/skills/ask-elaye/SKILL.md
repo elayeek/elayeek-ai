@@ -18,6 +18,8 @@ Before you describe a skill beyond its line here, read that skill's SKILL.md. Th
 4. **`implement-plan`** runs every task of a plan through `implement`, one implementer agent per task, then reviews them together.
 5. **`finish-branch`** takes the built branches to pull requests, a local merge, or keeps them local. Each step waits for your word.
 
+**`pull-request`** pushes a branch and opens its PR, or updates an open PR. `finish-branch` calls it; call it yourself for a branch you built by hand.
+
 **`implement`** builds one task test-first with a fresh review, to local commits. The task is a plan task, a tech spec, or an ask agreed in the conversation with no documents. `implement-plan` calls it per task; call it yourself for a single task.
 
 Pick the rung by the size of the work:

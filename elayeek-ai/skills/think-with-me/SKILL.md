@@ -4,4 +4,4 @@ description: A relentless interview to sharpen a plan or design.
 disable-model-invocation: true
 ---
 
-Call the Skill tool with "co-thinking".
+Call the Skill tool with "elayeek-ai:co-thinking".

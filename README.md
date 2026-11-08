@@ -25,7 +25,8 @@ Skills marked "/ only" load only when you type them as a slash command.
 | `implement-plan` | Run or resume a `plan.md`: one implementer agent per task, in parallel where the plan allows |
 | `tdd` | Build a feature or fix a bug test-first, red-green-refactor |
 | `diagnosing-bugs` | Find the cause of a hard bug or regression, then hand the fix to `implement` |
-| `finish-branch` | Check the gates, then push and open PRs, keep the branches local, or merge locally |
+| `pull-request` | Check the gates, then push a branch and open its PR, or update an open PR |
+| `finish-branch` | Check the gates, then open PRs through `pull-request`, keep the branches local, or merge locally |
 
 **Review**
 
