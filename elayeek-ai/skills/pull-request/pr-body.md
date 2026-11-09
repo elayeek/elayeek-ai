@@ -37,18 +37,25 @@ The body is the commit message when the branch is squash-merged. Write it for a 
 
 ## Review comment
 
-Post one comment on each PR for what matters only while it is open. Leave out a part that has nothing in it.
+Post one comment on each PR for what matters only while it is open. Leave out a part that has nothing in it. The first line is the comment's marker: keep it exact, since step 4 finds the comment by it.
 
 ```markdown
+🤖 **Open while in review**
+
 **To confirm:**
 - <each "decided, please confirm" decision still open>
 
 **Open questions:**
 - <each held question, with its mark>
 
+**Settled:**
+- <each item closed since the comment was first posted: the item, its answer, and who gave it>
+
 🤖 Written by Claude Code on behalf of <login>
 ```
 
-`<login>` is the account that `gh` runs as.
+`<login>` is the account that `gh` runs as: `gh api user --jq .login`.
+
+An item that was open in the posted comment and is open no longer moves to **Settled**. Take its answer from the caller, the user, or the PR's comments; when none of them gives it, ask the user. A settled choice that a future reader would question also gets its line of reasoning in the body.
 
 For the feature branch PR, the comment lists the task PRs in merge order with their states, and the release order from the tech spec.

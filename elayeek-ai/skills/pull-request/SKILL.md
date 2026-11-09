@@ -55,15 +55,27 @@ Done when: the PR is open with the right base, title, body, assignee and comment
 ## 4. Update the open PR
 
 1. Compare what the PR does now with its title and body: `gh pr view <number> --json title,body`, against the branch's commits since the remote branch.
-2. When the meaning changed, or the user asks for a new title or body, save the current body to a file. Write the new title and body as `pr-body.md` says, with Write, and read the body back in full. A change that leaves the PR's meaning as it was keeps the title and body.
-3. Ask for the yes. One yes covers the push, and the title and body edit when item 2 wrote one. A push that rewrites the remote branch has its own yes, as above.
-4. When item 2 wrote a new title and body, edit before the push: `gh pr edit <number> --title "<title>" --body-file <file>`, then read the body back with `gh pr view <number> --json body`.
-5. Push the branch with `git push`, or `--force-with-lease` on its own yes.
+2. Refresh the review comment:
+   - Find: get the `gh` login with `gh api user --jq .login`. Then find the comment id with the command below. Its output is the numeric `id` the PATCH needs. Empty output means no marker comment. `gh pr view --json comments` gives node IDs, which the PATCH does not take.
+     ```
+     gh api --paginate repos/<owner>/<repo>/issues/<number>/comments \
+       --jq '.[] | select(.user.login == "<login>" and (.body | startswith("🤖 **Open while in review**"))) | .id'
+     ```
+   - Rebuild: write the comment anew as `pr-body.md` says, from the caller's open items, or with no caller from the posted comment's items less those now answered. Keep every Settled entry of the posted comment, and add the newly settled ones.
+   - Save and write: when the new comment differs from the posted one, save the posted body to a file, write the new one with Write, and read it back in full.
+   - No marker comment: when open items need posting, write a new comment in full as `pr-body.md` says, with its closing `🤖 Written by Claude Code on behalf of <login>` line. Leave any older comment as it is.
+3. When the meaning changed, the user asks for a new title or body, or item 2 settled a choice that a future reader would question, save the current body to a file. Write the new title and body as `pr-body.md` says, with Write, and read the body back in full. A change that leaves the PR's meaning as it was keeps the title and body.
+4. Ask for the yes. One yes covers the push, the title and body edit when item 3 wrote one, and the comment when item 2 wrote one. A push that rewrites the remote branch has its own yes, as above.
+5. Edit before the push:
+   - When item 3 wrote a new title and body: `gh pr edit <number> --title "<title>" --body-file <file>`.
+   - When item 2 wrote a comment: `gh api -X PATCH repos/<owner>/<repo>/issues/comments/<id> -F body=@<file>`. With no marker comment, post the new one: `gh api repos/<owner>/<repo>/issues/<number>/comments -F body=@<file>`.
+   - Read back each body or comment it wrote with `gh pr view <number> --json body,comments`.
+6. Push the branch with `git push`, or `--force-with-lease` on its own yes.
 
-Done when: the branch is pushed, and the PR's title and body describe what it does now.
+Done when: the branch is pushed, and the PR's title, body and review comment describe the PR as it stands now.
 
 ## 5. Report
 
-Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result, when this run wrote a body or comment; the side effects, when the user's message was the yes; and the decisions to confirm and the held questions. When a caller called this skill, return the same facts and the PR number to it instead.
+Send the user one message: the PR link, new or updated; the gates with their exit codes; the read-back result, when this run wrote a body or comment; the side effects, when the user's message was the yes; and the decisions to confirm, the held questions, and the items that moved to Settled in this run. When a caller called this skill, return the same facts and the PR number to it instead.
 
 Done when: the user or the caller has the report.
